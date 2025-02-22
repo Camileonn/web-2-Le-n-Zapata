@@ -1,5 +1,7 @@
 from django.db import models
 
+""" definen la estructura de la base de datos"""
+
 from django.db import models
 
 class User(models.Model):

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+
+    .edit-user-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-user-container h1 {
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .user-info {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .user-photo {
+        max-width: 150px;
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-user-form h3 {
+        font-size: 1.5rem;
+        color: #555;
+        margin-top: 20px;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+    }
+
+    .edit-user-form {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .address-form {
+        margin-bottom: 15px;
+    }
+
+    .edit-user-form button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+
+    .edit-user-form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="edit-user-container">
+    
+    <div class="user-photo">
+        <img src="{{ user.photo }}" alt="Foto de {{ user.name }}" class="user-photo">
+    </div>
+
+   
+    <div class="user-info">
+        <h1>Editar Usuario: {{ user.name }}</h1>
+
+        <form method="POST" action="{% url 'edit_user' user.id %}" class="edit-user-form" id="edit-user-form">
+            {% csrf_token %}
+
+
+            <h3>Información del Usuario</h3>
+            {{ user_form.as_p }}
+
+
+            <h3>Direcciones</h3>
+            {% for form in address_forms %}
+                <div class="address-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+
+            <button id="update-user-button" type="submit">Actualizar Usuario</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

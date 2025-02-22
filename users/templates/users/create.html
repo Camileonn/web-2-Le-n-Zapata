@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Crear Usuario</h2>
+
+<form method="POST" action="{% url 'create_user' %}" class="create-user-form" id="create-user-form">
+    {% csrf_token %}
+    
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="age">Edad:</label>
+    <input type="number" id="age" name="age" required><br>
+
+    <label for="rfc">RFC:</label>
+    <input type="text" id="rfc" name="rfc" required><br>
+
+    <label for="photo">Foto (URL):</label>
+    <input type="text" id="photo" name="photo" required><br>
+
+    <button type="submit" id="create-user-button">Crear Usuario</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+   
+    const USER_CREATE_URL = "{% url 'create_user' %}";
+</script>
+<script src="{% static 'js/user.js' %}"></script>
+{% endblock %}

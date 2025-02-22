@@ -14,14 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+""" conectan las vistas con el navegador"""
 from django.contrib import admin
 from django.urls import path
+
+from django.contrib import admin
+from django.urls import path, include
+from users.views import usersIndex, mainPage
 
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls')),  # Incluir las URLs de la app 'users'
+    path('', mainPage, name='index')
 ]
-

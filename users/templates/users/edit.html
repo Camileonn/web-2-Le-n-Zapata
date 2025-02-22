@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editar Usuario</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Nombre:</label>
+    <input type="text" name="name" value="{{ user.name }}" required>
+    
+    <label>Email:</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+
+    <label>Edad:</label>
+    <input type="number" name="age" value="{{ user.age }}" required>
+
+    <label>RFC:</label>
+    <input type="text" name="rfc" value="{{ user.rfc }}" required>
+
+    <label>Foto:</label>
+    <input type="text" name="photo" value="{{ user.photo }}">
+
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock %}

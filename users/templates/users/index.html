@@ -1,28 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de clientes</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 20px; }
-        .card { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        .card img { width: 100%; height: 200px; object-fit: cover; }
-        .card p { margin: 5px 0; }
-    </style>
-</head>
-<body>
-    <h1 style="text-align:center;">Lista de clientes</h1>
-    <div class="container">
-        {% for user in users %}
-        <div class="card">
-            <img src="{{ user.photo }}" alt="Foto de {{ user.name }}">
-            <p><strong>{{ user.name }}</strong></p>
-            <p><strong>ID:</strong> {{ user.id }}</p>
-            <p><strong>Age:</strong> {{ user.age }}</p>
-        </div>
-        {% endfor %}
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Página Principal{% endblock %}
+
+{% block content %}
+    <section style="text-align: center; padding: 50px;">
+        <h1 style="font-size: 2.5rem; color: #007BFF;">Página Principal</h1>
+        <p style="font-size: 1.2rem; color: #555;">¡Hola! Bienvenido a nuestro sitio web.</p>
+    </section>
+{% endblock %}
+
