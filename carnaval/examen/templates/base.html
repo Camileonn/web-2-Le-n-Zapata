@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Carnaval{% endblock %}</title>
+    
+    
+    {% load static %}
+
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'index' %}">Index</a>
+        <a href="{% url 'eventos' %}">Eventos</a>
+        <a href="{% url 'boletos' %}">Boletos</a>
+        <a href="#">productos</a>
+        <a href="/admin/">Admin</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
+

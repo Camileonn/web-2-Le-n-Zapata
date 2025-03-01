@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Eventos{% endblock %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/eventos.css' %}">
+
+<h1>Eventos</h1>
+<div class="eventos-container">
+    {% for evento in eventos %}
+    <div class="evento">
+       
+        <img src="{% static 'img/carnaval2.jpg' %}" alt="Imagen del evento">
+
+        <h2 class="evento-nombre">{{ evento.name }}</h2>
+        <p><strong>Localidad:</strong> {{ evento.localidad.name }}</p>
+        <p><strong>Fecha:</strong> {{ evento.fecha_inicio }} - {{ evento.fecha_fin }}</p>
+
+      
+        <a href="{% url 'boletos' %}?evento={{ evento.id }}" class="btn">Comprar Boleto</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

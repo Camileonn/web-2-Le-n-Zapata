@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Boletos{% endblock %}
+{% block content %}
+
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/boletos.css' %}">
+
+<h1>Boletos</h1>
+<div class="boletos-container">
+    {% for boleto in boletos %}
+    <div class="boleto">
+        {% load static %}
+        <img src="{% static 'img/boletos.jpg' %}" alt="Boleto">
+    
+        <h3 class="id-boleto"> Boleto <span class="numero-boleto">{{ forloop.counter }}</span> : <span class="nombre-evento">{{ boleto.evento.name }}</span></h3>
+      
+        <p><strong>Localidad:</strong> {{ boleto.evento.localidad.name }}</p>
+        
+        <p>Precio: ${{ boleto.precio }}</p>
+        
+        <button>Comprar</button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
