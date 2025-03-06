@@ -5,4 +5,12 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('eventos/', views.eventos, name='eventos'),
     path('boletos/', views.boletos, name='boletos'),
+    path('agregar_evento/', views.agregar_evento, name='agregar_evento'),
+    path('eliminar_evento/<int:evento_id>/', views.eliminar_evento, name='eliminar_evento'),
+    path('boletos/<int:evento_id>/', views.ver_boletos, name='boletos'),
+
+    path('productos/', views.crear_boleto, name='crear_boleto'),
+    path('productos/eliminar/<int:boleto_id>/', views.eliminar_boleto, name='eliminar_boleto'),  # Ruta para eliminar boletos
+    
+
 ]

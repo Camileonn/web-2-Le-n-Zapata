@@ -1,0 +1,11 @@
+<div class="boleto">
+    {% load static %}
+    <img src="{% static 'img/boletos.jpg' %}" alt="Boleto">
+    <h3 class="id-boleto">
+        Boleto <span class="numero-boleto">{{ numero }}</span> :
+        <span class="nombre-evento">{{ boleto.evento.name }}</span>
+    </h3>
+    <p><strong>Localidad:</strong> {{ boleto.evento.localidad.name }}</p>
+    <p>Precio: ${{ boleto.precio }}</p>
+    <button>Comprar</button>
+</div>

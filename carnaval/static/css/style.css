@@ -3,11 +3,7 @@ body {
     text-align: center;
 }
 
-.eventos-container, .boletos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+
 .evento, .boleto {
     border: 1px solid #ddd;
     padding: 10px;

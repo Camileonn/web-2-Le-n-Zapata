@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Boleto - Carnaval{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+    <link rel="stylesheet" href="{% static 'css/producto.css' %}">
+
+    <h1>Crear Boleto para Evento</h1>
+
+    <form id="formulario-producto">
+        {% csrf_token %}
+        
+        <label for="evento">Evento</label>
+        <select name="evento" id="evento" required>
+            <option value="">Seleccione un Evento</option>
+            {% for evento in eventos %}
+                <option value="{{ evento.id }}">{{ evento.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="precio">Precio</label>
+        <input type="number" name="precio" id="precio" required>
+        
+        <label for="fecha">Fecha</label>
+        <input type="datetime-local" name="fecha" id="fecha" required>
+        
+        <button type="submit">Crear Boleto</button>
+    </form>
+
+    <h2>Boletos Recientes</h2>
+    <table id="tabla-boletos">
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Precio</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for boleto in boletos_recientes %}
+                <tr id="boleto-{{ boleto.id }}">
+                    <td>{{ boleto.evento.name }}</td>
+                    <td>{{ boleto.precio }}</td>
+                    <td>{{ boleto.fecha }}</td>
+                    <td>
+                        <button class="btn-eliminar" onclick="eliminarBoleto"({{ boleto.id }})">Eliminar</button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No hay boletos disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+{% load static %}
+{% block extra_js %}
+    <script src="{% static 'js/producto.js' %}"></script>
+{% endblock %}

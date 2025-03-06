@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<h1 class="titulo">Bienvenido al Carnaval</h1>
+
+
+<div class="image-grid">
+    <img src="{% static 'img/index1.png' %}" alt="Imagen 1">
+    <img src="{% static 'img/index1.png' %}" alt="Imagen 2">
+    <img src="{% static 'img/index3.png' %}" alt="Imagen 3">
+    <img src="{% static 'img/index4.png' %}" alt="Imagen 4">
+</div>
+
+<h2 class="subtitulo">Noticias</h2>
+<hr>
+
+<div class="main-container">
+  
+
+  <div class="eventos">
+    <h3>Explora nuestros eventos</h3>
+    <ul>
+      {% for evento in eventos %}
+        <li class="evento-item">
+          <img src="{% static 'img/carnaval2.jpg' %}" alt="Imagen del evento" class="evento-imagen">
+          <div class="evento-info">
+            <h4>{{ evento.name }}</h4>
+            <p>Desde {{ evento.fecha_inicio }} hasta {{ evento.fecha_fin }}</p>
+          </div>
+        </li>
+      {% empty %}
+        <p>No hay eventos disponibles.</p>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="noticias">
+    <h3>Últimas Noticias</h3>
+    {% for noticia in noticias %}
+      <div class="noticia-item">
+        <h4>{{ noticia.name }}</h4>
+        <p>{{ noticia.descripcion }}</p>
+        {% if noticia.imagen %}
+          <img src="{{ noticia.imagen.url }}" alt="{{ noticia.name }}" class="noticia-imagen">
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>No hay noticias disponibles.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

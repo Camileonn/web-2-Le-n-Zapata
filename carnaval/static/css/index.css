@@ -1,51 +1,36 @@
-/* Colores principales */
-:root {
-    --primary-color: #6A0DAD;  /* Morado */
-    --secondary-color: #FF8C00; /* Naranja */
-    --text-color: #fff;
-    --bg-light: #f4f4f4;
-}
-
-/* Estilos generales */
+/* Estilo general */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--bg-light);
-    color: var(--primary-color);
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-/* Títulos */
 h1 {
-    color: var(--secondary-color);
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    background-color: #ff5733;
+    color: white;
 }
 
-h2 {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-top: 40px;
-}
-
-h3 {
-    color: var(--secondary-color);
-    font-size: 1.8rem;
-}
-
-/* Estilos para las imágenes en dos columnas */
+/* Estilo para la cuadrícula de imágenes */
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    grid-template-rows: 250px 250px; /* Dos filas */
+    gap: 10px;
     max-width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
+/* Estilos generales para las imágenes */
 .image-grid img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out;
@@ -55,68 +40,137 @@ h3 {
     transform: scale(1.05);
 }
 
-/* Contenedor principal para eventos y noticias */
-.main-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    max-width: 90%;
-    margin: 40px auto;
+/* Posicionamiento de las imágenes */
+
+/* Fila superior: Dos imágenes (una por columna) */
+.image-grid img:nth-child(1) {
+    grid-column: 1 / 2; /* Primera columna */
+    grid-row: 1 / 2; /* Primera fila */
 }
 
-/* Estilos para columnas de eventos y noticias */
-.eventos, .noticias {
-    width: 48%;
-    padding: 20px;
-    background: var(--primary-color);
-    color: var(--text-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.image-grid img:nth-child(2) {
+    grid-column: 2 / 3; /* Segunda columna */
+    grid-row: 1 / 2; /* Primera fila */
 }
 
-.eventos ul {
-    list-style: none;
-    padding: 0;
+/* Fila inferior: Tres imágenes */
+
+/* Las primeras dos imágenes en la mitad izquierda (columna dividida) */
+.image-grid .split-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr; /* Dos filas internas */
+    gap: 10px;
+    grid-column: 1 / 2; /* Ocupa la primera columna completa */
+    grid-row: 2 / 3; /* Segunda fila */
+    height: 100%;
 }
 
-.evento-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    background: var(--secondary-color);
-    padding: 10px;
-    border-radius: 5px;
+.image-grid img:nth-child(3) {
+    grid-row: 1 / 2; /* Imagen superior dentro del split */
 }
 
-.evento-imagen {
-    width: 150px;   /* Tamaño mayor para la imagen */
-    height: 150px;  /* Mantener la proporción de la imagen */
-    margin-right: 20px;  /* Espacio entre la imagen y el texto */
-    border-radius: 10px;  /* Aseguramos que la imagen tenga bordes redondeados */
-    object-fit: cover;  /* Aseguramos que la imagen se ajuste correctamente */
+.image-grid img:nth-child(4) {
+    grid-row: 2 / 3; /* Imagen inferior dentro del split */
 }
 
-.evento-info {
-    flex: 1;
+/* Imagen grande a la derecha */
+.image-grid img:nth-child(5) {
+    grid-column: 2 / 3; /* Segunda columna */
+    grid-row: 2 / 3; /* Segunda fila */
 }
 
-
-.noticia-item {
-    background: var(--secondary-color);
-    padding: 8px; 
-    margin: 8px 0; 
-    border-radius: 5px;
-    font-size: 0.85rem; 
+/* Sección de Noticias y Eventos */
+h2 {
+    text-align: center;
+    margin: 40px 0 10px;
+    color: #ff5733;
 }
-
-.noticia-imagen {
-    width: 90%;
-    border-radius: 5px;
-}
-
 
 hr {
     width: 50%;
-    border: 2px solid var(--secondary-color);
-    margin: 20px auto;
+    margin: 10px auto 20px;
+    border: 1px solid #ff5733;
+}
+
+/* Contenedor principal de dos columnas */
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Sección de eventos y noticias */
+.eventos, .noticias {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* Títulos de las secciones */
+.eventos h3, .noticias h3 {
+    margin-top: 0;
+    color: #ff5733;
+    border-bottom: 2px solid #ff5733;
+    padding-bottom: 5px;
+}
+
+/* Estilo para cada noticia */
+.noticia-item {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column; /* Asegura que imagen, título y descripción estén en columna */
+    width: 100%; /* Hace que cada noticia ocupe el 100% del contenedor */
+    background-color: #fff; /* Fondo blanco para cada noticia */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Imagen de la noticia */
+.noticia-imagen {
+    width: 100%;
+    height: auto;
+    max-height: 300px; /* Limita la altura máxima de la imagen */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+}
+
+/* Título de la noticia */
+.noticia-item h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Descripción de la noticia */
+.noticia-item p {
+    margin: 10px 0 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Efecto hover para cada noticia */
+.noticia-item:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+/* Responsividad para dispositivos móviles */
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr; /* En pantallas pequeñas, hacer una sola columna */
+    }
+    .noticias, .eventos {
+        padding: 15px; /* Ajustar el padding en pantallas pequeñas */
+    }
 }
