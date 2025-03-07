@@ -80,15 +80,21 @@ def agregar_evento(request):
         fecha = timezone.now()
         Boleto.objects.create(evento=evento, precio=precio, fecha=fecha)
 
-     
-        return redirect('agregar_evento')  
+        # Enviar respuesta JSON con los datos del evento creado
+        return JsonResponse({
+            'id': evento.id,
+            'name': evento.name,
+            'fecha_inicio': evento.fecha_inicio,
+            'fecha_fin': evento.fecha_fin,
+            'localidad_name': evento.localidad.name
+        })
 
     localidades = Localidad.objects.all()
     eventos = Evento.objects.order_by('-id')[:5]  # Últimos 5 eventos creados
     return render(request, 'agregar_evento.html', {'localidades': localidades, 'eventos': eventos})
 
 
-
+# Vista para eliminar un evento
 @require_http_methods(["DELETE"])
 def eliminar_evento(request, evento_id):
     try:
@@ -97,7 +103,6 @@ def eliminar_evento(request, evento_id):
         return JsonResponse({'success': True})
     except Evento.DoesNotExist:
         return JsonResponse({'error': 'Evento no encontrado'}, status=404)
-
 
 
 
@@ -118,3 +123,40 @@ def boletos(request):
     boletos = Boleto.objects.all()
     return render(request, 'boletos.html', {'boletos': boletos})
 
+
+def agregar_boleto(request):
+    if request.method == 'POST':
+        evento_id = request.POST.get('evento')
+        precio = float(request.POST.get('precio'))
+
+        if not evento_id or not precio:
+            return JsonResponse({'error': 'El evento y el precio son obligatorios'}, status=400)
+
+        evento = Evento.objects.get(id=evento_id)
+        fecha = timezone.now()
+
+        boleto = Boleto.objects.create(
+            precio=precio,
+            evento=evento,
+            fecha=fecha
+        )
+
+        return JsonResponse({
+            'id': boleto.id,
+            'evento_name': boleto.evento.name,
+            'precio': boleto.precio,
+            'fecha': boleto.fecha.strftime('%Y-%m-%d %H:%M'),
+        })
+
+    eventos = Evento.objects.all()
+    boletos = Boleto.objects.order_by('-fecha')[:5]  # Últimos 5 boletos creados
+    return render(request, 'agregar_boleto.html', {'eventos': eventos, 'boletos': boletos})
+
+@require_http_methods(["POST"])
+def eliminar_boleto(request, boleto_id):
+    try:
+        boleto = Boleto.objects.get(id=boleto_id)
+        boleto.delete()
+        return JsonResponse({'success': True})
+    except Boleto.DoesNotExist:
+        return JsonResponse({'error': 'Boleto no encontrado'}, status=404)

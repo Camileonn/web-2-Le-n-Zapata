@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Boleto{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/agregar_boleto.css' %}">
+    <h1>Agregar Boleto</h1>
+
+    <div id="mensaje" class="mensaje" style="display: none;"></div>
+
+    <div class="form-container">
+        <form method="POST" id="form-boleto">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="evento">Evento:</label>
+                <select id="evento" name="evento" required>
+                    <option value="" disabled selected>Seleccione un Evento</option>
+                    {% for evento in eventos %}
+                        <option value="{{ evento.id }}">{{ evento.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio del Boleto:</label>
+                <input type="number" id="precio" name="precio" required>
+            </div>
+
+            <button type="submit" class="btn guardar">Guardar Boleto</button>
+        </form>
+    </div>
+
+    <h2>Boletos Creados Recientemente</h2>
+
+    <table class="tabla-boletos">
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Precio</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-boletos">
+            {% for boleto in boletos %}
+                <tr>
+                    <td>{{ boleto.evento.name }}</td>
+                    <td>{{ boleto.precio }}</td>
+                    <td>{{ boleto.fecha }}</td>
+                    <td>
+                        <button class="btn-eliminar" data-id="{{ boleto.id }}">Eliminar</button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4">No hay boletos recientes</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div id="toast" style="display: none;" class="toast">Boleto creado correctamente</div>
+
+    {% load static %}
+
+
+    <script src="{% static 'js/boletos.js' %}"></script>
+{% endblock %}

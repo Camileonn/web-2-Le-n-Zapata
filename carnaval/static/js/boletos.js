@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form-evento');
+    const form = document.getElementById('form-boleto');
     const mensaje = document.getElementById('mensaje');
-    const tablaEventos = document.getElementById('tabla-eventos');
+    const tablaBoletos = document.getElementById('tabla-boletos');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
 
         try {
-            const response = await fetch('/agregar_evento/', {
+            const response = await fetch('/agregar_boleto/', {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrftoken,
@@ -23,23 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
-                    <td>${data.name}</td>
-                    <td>${data.fecha_inicio}</td>
-                    <td>${data.fecha_fin}</td>
-                    <td>${data.localidad_name}</td>
+                    <td>${data.evento_name}</td>
+                    <td>${data.precio}</td>
+                    <td>${data.fecha}</td>
                     <td>
                         <button class="btn-eliminar" data-id="${data.id}">Eliminar</button>
                     </td>
                 `;
-                tablaEventos.appendChild(newRow);
+                tablaBoletos.appendChild(newRow);
 
-                mensaje.textContent = 'Evento agregado correctamente';
+                mensaje.textContent = 'Boleto agregado correctamente';
                 mensaje.style.display = 'block';
                 mensaje.style.color = 'green';
 
                 form.reset();
             } else {
-                mensaje.textContent = data.error || 'Error al agregar el evento';
+                mensaje.textContent = data.error || 'Error al agregar el boleto';
                 mensaje.style.display = 'block';
                 mensaje.style.color = 'red';
             }
@@ -52,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    tablaEventos.addEventListener('click', async (e) => {
+    tablaBoletos.addEventListener('click', async (e) => {
         if (e.target.classList.contains('btn-eliminar')) {
-            const eventoId = e.target.getAttribute('data-id');
+            const boletoId = e.target.getAttribute('data-id');
 
             try {
-                const response = await fetch(`/eliminar_evento/${eventoId}/`, {
-                    method: 'DELETE', // Usamos DELETE en lugar de POST
+                const response = await fetch(`/eliminar_boleto/${boletoId}/`, {
+                    method: 'POST',
                     headers: {
                         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
                     },
@@ -68,11 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     e.target.closest('tr').remove();
-                    mensaje.textContent = 'Evento eliminado correctamente';
+                    mensaje.textContent = 'Boleto eliminado correctamente';
                     mensaje.style.display = 'block';
                     mensaje.style.color = 'green';
                 } else {
-                    mensaje.textContent = data.error || 'Error al eliminar el evento';
+                    mensaje.textContent = data.error || 'Error al eliminar el boleto';
                     mensaje.style.display = 'block';
                     mensaje.style.color = 'red';
                 }
@@ -86,4 +85,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
